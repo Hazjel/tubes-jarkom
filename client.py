@@ -24,7 +24,7 @@ def start_client(ip, port, file):
             print("Koneksi diakhiri oleh client.")
             break
     
-    client_socket.close()
+            client_socket.close()
     
 if __name__ == "__main__":
     if len(sys.argv) != 4:

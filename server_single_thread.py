@@ -10,8 +10,7 @@ def handle_client(connection_socket, client_address):
         f = open(fname[1:], encoding=('utf-8'))
         out = f.read()
 
-        # Tambahkan delay untuk simulasi proses yang memakan waktu
-        time.sleep(5)  # Delay 5 detik untuk demonstrasi
+        # Tambahkan delay untuk simulasi proses yang memakan waktu  # Delay 5 detik untuk demonstrasi
         print(f"[*] Mengirim response ke client {client_address}...")
 
         connection_socket.send("HTTP/1.1 200 OK\r\n\r\n".encode())
