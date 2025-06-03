@@ -1,6 +1,5 @@
 import socket
 import sys
-import time
 
 def start_client(ip, port, file):
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -19,8 +18,6 @@ def start_client(ip, port, file):
             break
         print(data.decode(), end='')
 
-    # Sleep for 10 seconds before closing
-    time.sleep(10)
     client_socket.close()
     
 if __name__ == "__main__":
