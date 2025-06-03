@@ -17,10 +17,8 @@ def start_client(ip, port, file):
         if not data:
             break
         print(data.decode(), end='')
-        
-        # Meminta input dari user untuk mengakhiri koneksi
     
-        client_socket.close()
+    client_socket.close()
     
 if __name__ == "__main__":
     if len(sys.argv) != 4:
