@@ -19,12 +19,8 @@ def start_client(ip, port, file):
         print(data.decode(), end='')
         
         # Meminta input dari user untuk mengakhiri koneksi
-        user_input = input("\nApakah anda ingin mengakhiri koneksi? (Y/N): ")
-        if user_input.upper() == "Y":
-            print("Koneksi diakhiri oleh client.")
-            break
     
-            client_socket.close()
+        client_socket.close()
     
 if __name__ == "__main__":
     if len(sys.argv) != 4:
