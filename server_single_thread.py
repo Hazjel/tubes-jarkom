@@ -25,12 +25,17 @@ def handle_client(connection_socket, client_address):
                 client_response = connection_socket.recv(1024).decode()
                 if "Y" in client_response.upper():
                     print(f"[*] Client {client_address} meminta untuk mengakhiri koneksi")
-                    break
+                    connection_socket.close()
+                    print(f"[-] Koneksi dengan client {client_address} telah terputus")
+                    print(f"[+] Server siap menerima koneksi baru\n")
+                    print("="*50)
+                    return  # Keluar dari fungsi setelah menutup koneksi
             except:
                 break
 
+        # Jika terjadi error atau client tidak merespon
         connection_socket.close()
-        print(f"[-] Koneksi dengan client {client_address} telah terputus")
+        print(f"[-] Koneksi dengan client {client_address} telah terputus (timeout/error)")
         print(f"[+] Server siap menerima koneksi baru\n")
         print("="*50)
 
@@ -50,7 +55,7 @@ server_socket.listen(1)  # Ubah ke 1 untuk membatasi antrian
 print("="*50)
 print("[+] Server single thread siap melayani...")
 print("[*] Server ini akan memproses satu client pada satu waktu.")
-print("[*] Setiap request akan diproses selama 5 detik untuk demonstrasi.")
+print("[*] Server akan menutup koneksi setelah client mengirim 'Y'")
 print("[+] Menunggu koneksi client...\n")
 
 try:
