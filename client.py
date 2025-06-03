@@ -1,28 +1,27 @@
 import socket
 import sys
+import time
 
 def start_client(ip, port, file):
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    
     client_socket.connect((ip, port))
 
+    request = f"GET /{file} HTTP/1.1\r\nHost: {ip}:{port}\r\n\r\n"
+    
+    client_socket.send(request.encode())
+    response = client_socket.recv(1024).decode()
+    print(response)
+    
     while True:
-        request = f"GET /{file} HTTP/1.1\r\nHost: {ip}:{port}\r\n\r\n"
-        
-        client_socket.send(request.encode())
-        response = client_socket.recv(1024).decode()
-        print(response)
-        
-        while True:
-            data = client_socket.recv(1024)
-            if not data:
-                break
-            print(data.decode(), end='')
-        
-        # Ask user if they want to continue
-        user_input = input("\nDo you want to continue? (y/n): ")
-        if user_input.lower() == 'n':
-            client_socket.close()  # Only close the connection when user inputs 'n'
+        data = client_socket.recv(1024)
+        if not data:
             break
+        print(data.decode(), end='')
+
+    # Sleep for 10 seconds before closing
+    time.sleep(10)
+    client_socket.close()
     
 if __name__ == "__main__":
     if len(sys.argv) != 4:
