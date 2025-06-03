@@ -2,11 +2,11 @@ import socket
 import sys
 
 def start_client(ip, port, file):
-    client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    
-    client_socket.connect((ip, port))
-
     while True:
+        # Create new socket connection for each request
+        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        client_socket.connect((ip, port))
+
         request = f"GET /{file} HTTP/1.1\r\nHost: {ip}:{port}\r\n\r\n"
         
         client_socket.send(request.encode())
@@ -19,12 +19,13 @@ def start_client(ip, port, file):
                 break
             print(data.decode(), end='')
         
+        # Close the current connection
+        client_socket.close()
+        
         # Ask user if they want to continue
         user_input = input("\nDo you want to make another request? (y/n): ")
         if user_input.lower() != 'y':
             break
-
-    client_socket.close()
     
 if __name__ == "__main__":
     if len(sys.argv) != 4:
